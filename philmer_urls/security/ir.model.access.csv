@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_philmer_url_user,philmer_urls.philmer_url user,model_philmer_url,philmer_urls_user,1,0,0,0
+access_philmer_url_manager,philmer_urls.philmer_url manager,model_philmer_url,philmer_urls_manager,1,1,1,1
+access_philmer_url_tag_user,philmer_urls.philmer_url_tag user,model_philmer_url_tag,philmer_urls_user,1,0,0,0
+access_philmer_url_tag_manager,philmer_urls.philmer_url_tag manager,model_philmer_url_tag,philmer_urls_manager,1,1,1,1
+
+

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- VIEWS -->
+        <!-- URLS -->
+        <record model="ir.ui.view" id="philmer_book_form">
+            <field name="name">philmer.url.form</field>
+            <field name="model">philmer.url</field>
+            <field name="arch" type="xml">
+                <form string="URL">
+                    <sheet>
+                        <div colspan="4">
+                            <div class="oe_edit_only"><label for="name"/></div>
+                            <h1><field name="name" default_focus="1" placeholder="Name"/></h1>
+                        </div>
+                        <div colspan="4">
+                            <div class="oe_edit_only"><label for="url"/></div>
+                            <h2><field name="url" placeholder="URL, address, link, ..." widget="url"/></h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="language_id"/>
+                                <label for="tag_ids"/>
+                                <field name="tag_ids" widget="many2many_tags" nolabel="1"/>
+                                <field name="comment"/>
+                                <field name="user_id"/>
+                                <field name="confidential" attrs="{'invisible': [('user_id','=',False)]}"/>
+                            </group>
+                            <group>
+                                <field name="last_visit"/>
+                                <field name="type_freq"/>
+                                <field name="duration_freq"/>
+                                <field name="next_visit"/>
+                                <field name="last_verification" readonly="1"/>
+                                <field name="wrong_verification" attrs="{'invisible': [('wrong_verification','=', 0)]}"/>
+                                <field name="active" class="oe_edit_only"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="philmer_url_tree">
+            <field name="name">philmer.url.tree</field>
+            <field name="model">philmer.url</field>
+            <field name="arch" type="xml">
+                <tree string="URLs">
+                    <field name="name"/>
+                    <field name="url_type"/>
+                    <field name="last_visit"/>
+                </tree>
+            </field>
+        </record>
+        <record id="philmer_url_filter" model="ir.ui.view">
+            <field name="name">philmer.url.select</field>
+            <field name="model">philmer.url</field>
+            <field name="arch" type="xml">
+                <search string="Search URL">
+                    <field name="name" domain="[('name','ilike',self)]"/>
+                    <field name="comment" domain="[('comment','ilike',self)]"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <filter help="My URLs" domain="[('user_id','=',uid)]"/>
+                    <group expand="0" name="group_by" string="Group By">
+                        <filter string="User" context="{'group_by': 'user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- ACTIONS -->
+        <act_window id="philmer_url_action"
+                    name="URLs"
+                    res_model="philmer.url"/>
+        <act_window id="philmer_my_url_action"
+                    name="My URLs"
+                    res_model="philmer.url"
+                    domain="[('user_id','=',uid)]"/>
+
+        <!-- MENUS -->
+        <!-- main menu -->
+        <menuitem id="philmer_url_top_menu"
+                  name="URLs"
+                  sequence="20"/>
+        <!-- menus for main objects : urls and tags-->
+        <menuitem id="philmer_url_main_menu"
+                  name="URLs"
+                  parent="philmer_url_top_menu"
+                  sequence="10"/>
+        <menuitem id="philmer_url_menu"
+                  name="URLs"
+                  action="philmer_url_action"
+                  parent="philmer_url_main_menu"
+                  sequence="10"/>
+        <menuitem id="philmer_my_url_menu"
+                  name="My URLs"
+                  action="philmer_my_url_action"
+                  parent="philmer_url_menu"
+                  sequence="10"/>
+        <!-- Menus for configuration menus -->
+        <menuitem id="philmer_url_configuration_menu"
+                  name="Configuration"
+                  parent="philmer_url_top_menu"
+                  sequence="90"/>
+    </data>
+</openerp>

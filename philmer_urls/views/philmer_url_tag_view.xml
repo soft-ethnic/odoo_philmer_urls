@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- VIEWS -->
+        <!-- TAGS -->
+        <record model="ir.ui.view" id="philmer_url_tag_form">
+            <field name="name">philmer.url.tag.form</field>
+            <field name="model">philmer.url.tag</field>
+            <field name="arch" type="xml">
+                <form string="Tag">
+                    <sheet>
+                        <div class="oe_title">
+                            <div class="oe_edit_only"><label for="name"/></div>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group string="URLs">
+                            <field name="url_ids" nolabel="1"/>
+                        </group>
+                        <field name="active"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="philmer_url_tag_tree">
+            <field name="name">philmer.url.tag.tree</field>
+            <field name="model">philmer.url.tag</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ACTIONS -->
+        <act_window id="philmer_url_tag_action"
+                    name="Tags"
+                    res_model="philmer.url.tag"/>
+
+        <!-- MENUS -->
+        <menuitem id="philmer_url_tag_menu"
+                  name="Tags"
+                  action="philmer_url_tag_action"
+                  parent="philmer_url_configuration_menu"
+                  sequence="10"/>
+    </data>
+</openerp>
